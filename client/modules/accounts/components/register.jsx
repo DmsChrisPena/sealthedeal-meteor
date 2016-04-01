@@ -17,7 +17,6 @@ class Register extends React.Component {
 		);
 	}
 	createUser(event) {
-		console.log(this.props);
 		if(event && event.preventDefault) { 
 			event.preventDefault();
 		}

@@ -4,10 +4,13 @@ import initContext from './configs/context';
 
 // modules
 import coreModule from './modules/core';
+import accountsModule from './modules/accounts';
 
 const coreReducers = coreModule.reducers;
+const accountsReducers = accountsModule.reducers;
 const reducer = combineReducers({
-  ...coreReducers
+  ...coreReducers,
+  ...accountsReducers
 });
 
 // init context
@@ -16,4 +19,5 @@ const context = initContext({reducer});
 // create app
 const app = createApp(context);
 app.loadModule(coreModule);
+app.loadModule(accountsModule);
 app.init();

@@ -6,14 +6,12 @@ export const composer = ({context, clearErrors}, onData) => {
 
   const unsubscribe = Store.subscribe(() => {
 
-    const error = Store.getState().user.USER_STATE;
-    const otherError = "Windham";
-    onData(null, {error, otherError})
+    const error = Store.getState().register.USER_STATE;
+    onData(null, {error})
   });
 
-  const error = Store.getState().user.USER_STATE;
-  const otherError = null;
-  onData(null, {error, otherError});
+  const error = Store.getState().register.USER_STATE;
+  onData(null, {error});
 
   const cleanup = () => {
     unsubscribe();
@@ -23,8 +21,8 @@ export const composer = ({context, clearErrors}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
-  createUser: actions.user.createUser,
-  clearErrors: actions.user.clearErrors,
+  createUser: actions.register.createUser,
+  clearErrors: actions.register.clearErrors,
   context: () => context
 });
 
