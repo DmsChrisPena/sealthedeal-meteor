@@ -5,6 +5,7 @@ import {Tracker} from 'meteor/tracker';
 import {createStore} from 'redux';
 import {Accounts} from 'meteor/accounts-base';
 
+
 export default function ({reducer}) {
   return {
     Meteor,
