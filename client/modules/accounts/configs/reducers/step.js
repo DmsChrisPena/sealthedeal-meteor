@@ -4,7 +4,8 @@ const stepReducers = (state = defaultState, action) => {
 		case 'STEP1':
 			return {
 				...state,
-				STEP_STATE: action.step
+				STEP_STATE: action.step,
+				stepInfo: action.stepInfo
 			}
 		case 'USER_STEP2':
 			return {
@@ -13,6 +14,19 @@ const stepReducers = (state = defaultState, action) => {
 				stepInfo: action.stepInfo
 			}
 		case 'VENDOR_STEP2':
+			return {
+				...state,
+				STEP_STATE: action.step,
+				stepInfo: action.stepInfo
+			}
+		case 'VENDOR_STEP2_GEOLOCATED':
+			return {
+				...state,
+				STEP_STATE: action.step,
+				stepInfo: action.stepInfo,
+				locationInfo: action.locationInfo
+			}
+		case 'PREVIOUS_STEP':
 			return {
 				...state,
 				STEP_STATE: action.step,

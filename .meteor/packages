@@ -24,3 +24,5 @@ accounts-base
 accounts-password
 aldeed:collection2
 materialize:materialize
+http
+kadira:dochead

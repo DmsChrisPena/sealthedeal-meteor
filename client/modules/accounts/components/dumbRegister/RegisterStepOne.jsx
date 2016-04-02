@@ -3,34 +3,44 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
 
 class RegisterStepOne extends React.Component {
+	// Initialize values if nextStep was invoked
+	constructor(props) {
+		super(props);
+		const { stepInfo } = props;
+		this.state = {
+	        email: stepInfo ? stepInfo.email : null,
+	        password: stepInfo ? stepInfo.password : null,
+	        confirmPassword: stepInfo ? stepInfo.confirmPassword : null  
+	    };
+	}
 	render() {
-
-		// Pull out of the need props
+		// Pull out needed values
 		const {
-			error, 
-			role, 
-			step
+			step,
+			role
 		} = this.props.allProps;
 
 		// Get Methods from smart component
 		const {
 			changeRole,
-			changeStep
+			nextStep,
+			validateRegister
 		} = this.props;
 
 		return (
-			<form className="row" onSubmit={changeStep}>
-				<h2 className="col s12">Create {role}</h2>
-				{error ? <p style={{color: 'red'}}>{error}</p> : null }
-				{step}
+			<form className="row" onSubmit={nextStep}>
 				<TextField
 					id="email"
+					value={this.state.email}
+					onChange={this.handleInputChange.bind(this, 'email')}
 					hintText="Enter Email..."
 					floatingLabelText="Email"
 					fullWidth={true}
 				/>
 				<TextField
 					id="password"
+					value={this.state.password}
+					onChange={this.handleInputChange.bind(this, 'password')}
 					type="password"
 					hintText="Enter Password..."
 					floatingLabelText="Password"
@@ -38,6 +48,8 @@ class RegisterStepOne extends React.Component {
 				/>
 				<TextField
 					id="confirmPassword"
+					value={this.state.confirmPassword}
+					onChange={this.handleInputChange.bind(this, 'confirmPassword')}
 					type="password"
 					hintText="Enter Confirm Password..."
 					floatingLabelText="Confirm Password"
@@ -47,7 +59,7 @@ class RegisterStepOne extends React.Component {
 				<div className="switch" style={{margin: 12}}>
 				  <label>
 				    Are you a User
-				    <input ref="role" type="checkbox" onChange={changeRole} />
+				    <input ref="role" type="checkbox" onChange={changeRole} checked={role === 'Vendor' ? true : false} />
 				    <span className="lever"></span>
 				    or Vendor?
 				  </label>
@@ -55,12 +67,19 @@ class RegisterStepOne extends React.Component {
 
 				<RaisedButton 
 					type='submit'
-					label="Step 2" 
+					label="Step 1" 
 					backgroundColor="white"
 					labelColor="green" 
 				/>
 			</form>
 		);
+	}
+	// Changes the values on state
+	// Generic enough to put on any input
+	handleInputChange(name, e) {
+		var change = {};
+		change[name] = e.target.value;
+		this.setState(change);
 	}
 }
 
