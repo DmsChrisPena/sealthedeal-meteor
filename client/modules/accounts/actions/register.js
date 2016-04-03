@@ -9,9 +9,13 @@ export default {
 					error: er.reason
 				});
 			} else {
+
+				// Clear any errors
 				Store.dispatch({
 					type: 'CLEAR_ERROR'
 				});
+				
+				// Clear our register state
 				Store.dispatch({
 					type: 'STEP1',
 					stepInfo: {}
@@ -63,6 +67,8 @@ export default {
 		}
 	},
 	validateUser({Store}, name, sex, age, interests) {
+	},
+	validateVendor({Store}, name, businessName, type) {
 
 	},
 	changeStep({Store}, step, role, stepInfo){
@@ -88,10 +94,36 @@ export default {
 			stepInfo: stepInfo
 		});
 	},
+	geocodeVendor({Store}, result) {
+
+		const [ streetNum, streetName, subdivision, city, county, state, country, zip  ] = result.address_components;
+
+		const { lat, lng } = result.geometry.access_points[0].location;
+
+		const geocodeResults = {
+			formatted_address: result.formatted_address,
+			streetNum: streetNum.long_name,
+			streetName: streetName.long_name,
+			subdivision: subdivision.long_name,
+			city: city.long_name,
+			county: county.long_name,
+			state: state.long_name,
+			country: country.long_name,
+			zip: zip.long_name,
+			latitude: lat,
+			longitude: lng
+		};
+
+		Store.dispatch({
+			type: 'VENDOR_STEP2_LOCATED',
+			step: 'vendorStep2',
+			stepInfo: Store.getState().step.stepInfo,
+			businessLocation: geocodeResults
+		});
+	},
 	getGeolocation({Store}) {
 		navigator.geolocation.getCurrentPosition(
 			(position) => { 
-				console.log(position.coords.latitude);
 				const { latitude, longitude } = position.coords;
 				HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' +  longitude + '&key=AIzaSyAHXaqI9SxhJZDLF_-YQk7lyumu3l8vzJI', (er, response) => {
 					if(er) {
@@ -106,24 +138,39 @@ export default {
 
 						let [ address, city, state, zip, country ] = _addressArray;
 						let locationInfo = {
+							formatted_address,
 							address,
 							city,
 							state,
 							zip,
-							country
+							country,
+							latitude,
+							longitude
 						};				
 						Store.dispatch({
-							type: 'VENDOR_STEP2_GEOLOCATED',
-							step: 'vendorStep2',
+							type: 'USER_STEP2_GEOLOCATED',
+							step: 'userStep2',
 							stepInfo: Store.getState().step.stepInfo,
 							locationInfo
 						});
 
 					}
 				})
-			}
-		);
+			}, (error) => {
+				Store.dispatch({
+					type: 'CREATE_USER_ERROR',
+					error: 'Could not find location.'
+				});
+			});
+	},
+	login({Meteor, Store}, email, password) {
+		Meteor.loginWithPassword(email, password, (er) => {
+			if(er) {
+				return Materialize.toast(er.reason, 4000);
+			} else {
 
+			}
+		});
 	},
 	clearErrors({Store}) {
 		return Store.dispatch({

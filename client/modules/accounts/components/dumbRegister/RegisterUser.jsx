@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 //import DatePicker from 'material-ui/lib/date-picker/date-picker';
 // RIP Datepicker is not working. Logged issue waiting for response.
@@ -41,6 +42,20 @@ class RegisterUser extends React.Component {
 	    // Materialize needs special selector to add onChange event
 	    $(ReactDOM.findDOMNode(this.refs.sex)).on('change', this.handleInputChange.bind(this, 'sex'));
 	    $(ReactDOM.findDOMNode(this.refs.interests)).on('change', this.handleInputChange.bind(this, 'interests'));
+
+
+		if(Meteor.isCordova) {
+			// If Meteor is a mobile device
+			// Add deviceready event listener
+			document.addEventListener("deviceready", onDeviceReady, false);
+			function onDeviceReady() {
+				this.props.getGeolocation();
+			};
+		} else {
+			// Geolocate user for mapping information
+			// As well as location information
+			this.props.getGeolocation();
+		}
 	}
 	render() {
 		// Pull out needed values
@@ -52,7 +67,8 @@ class RegisterUser extends React.Component {
 		// Get Methods from smart component
 		const {
 			previousStep,
-			createUser
+			createUser,
+			locationInfo
 		} = this.props;
 
 		// Get interests to display
@@ -68,6 +84,10 @@ class RegisterUser extends React.Component {
 					:
 					<img src='http://i.imgur.com/UxsiqUB.png' />
 				}
+				{locationInfo !== undefined ? 
+					<p>Hows the weather in {locationInfo.city}, {locationInfo.state}?</p> 
+				: <CircularProgress size={0.5} />}
+
 				{interestList ?
 					interestList.map((interest)=>{
 						return <p>{interest}</p>;

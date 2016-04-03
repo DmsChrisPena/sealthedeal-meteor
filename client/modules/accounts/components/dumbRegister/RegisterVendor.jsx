@@ -3,7 +3,6 @@ import Meteor from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
-import CircularProgress from 'material-ui/lib/circular-progress';
 
 class RegisterVendor extends React.Component {
 	// Initialize values if nextStep was invoked
@@ -15,6 +14,7 @@ class RegisterVendor extends React.Component {
 	        businessName: stepInfo ? stepInfo.businessName : null,
 	        location: stepInfo ? stepInfo.location : null,  
 	        types: stepInfo ? stepInfo.types : null,  
+	        mapUrl: null
 	    };
 	}
 	componentDidMount() {
@@ -22,27 +22,33 @@ class RegisterVendor extends React.Component {
 	    $(document).ready(function() {
 	      $('select').material_select();
 	    });
-	    if(Meteor.isCordova) {
-	    	document.addEventListener("deviceready", onDeviceReady, false);
-	    	function onDeviceReady() {
-				this.props.getGeolocation();
-	    	};
-	    } else {
-	    	// Geolocate user for mapping information
-	    	// As well as location information
-	    	this.props.getGeolocation();
-	    }
-
 
 	    // Materialize needs special selector to add onChange event
 	    $(ReactDOM.findDOMNode(this.refs.types)).on('change', this.handleInputChange.bind(this, 'types'));
+
+	    // Once location is enter run function to geocode
+	    // Get values for location for profile object
+	    $("#geolocation").geocomplete().bind("geocode:result", (event, result) => {
+	    	// Show button that links to location on map
+	    	// That way the user can confirm the business location
+	    	this.displayMapButton(result.url);
+	    	this.props.geocodeVendor(result);
+
+  		});
+
+  		// Touch for Google places autocomplete doesn't work without
+  		// adding needsclick class.
+  		$(document).on({
+  		    'DOMNodeInserted': function() {
+  		        $('.pac-item, .pac-item span', this).addClass('needsclick');
+  		    }
+  		}, '.pac-container');
 	}
 	render() {
 		// Pull out needed values
 		const {
 			step,
-			role,
-			locationInfo
+			role
 		} = this.props.allProps;
 
 		// Get Methods from smart component
@@ -55,7 +61,7 @@ class RegisterVendor extends React.Component {
 		// Materialize makes it hard to grab values.
 		// So I'm forced to use jQuery till better solution.
 		let typesList = $('#types').val();
-
+		console.log(this.props.businessLocation);
 		return (
 			<form className="row" onSubmit={createUser}>
 				
@@ -66,7 +72,11 @@ class RegisterVendor extends React.Component {
 						return <p>{type}</p>;
 					})
 				: null}
-				{locationInfo !== undefined ? 'Hows\'s the weather in ' + locationInfo.city + ', ' + locationInfo.state + '?' : <CircularProgress size={0.5} /> }
+				{this.state.mapUrl ? 				
+					<a
+					href={this.state.mapUrl}
+					target="_blank">This location look correct?</a>
+				 : null}
 
 				<TextField
 					id="name"
@@ -85,6 +95,15 @@ class RegisterVendor extends React.Component {
 					floatingLabelText="Business Name"
 					fullWidth={true}
 				/>
+
+				<TextField 
+					id="geolocation"
+					floatingLabelText="Business Location"
+					hintText="Enter Location..."
+					placeholder=""
+					fullWidth={true}
+				/>
+
 				<div>
 					<label>Select your Types</label>
 						<select id="types" ref="types" multiple>
@@ -95,6 +114,7 @@ class RegisterVendor extends React.Component {
 						<option value="Activities">Activities</option>
 					</select>
 				</div>
+
 				<RaisedButton 
 					onClick={previousStep}
 					label="Back" 
@@ -119,6 +139,10 @@ class RegisterVendor extends React.Component {
 		var change = {};
 		change[name] = e.target.value;
 		this.setState(change);
+	}
+
+	displayMapButton(url) {
+		this.setState({mapUrl: url});
 	}
 }
 

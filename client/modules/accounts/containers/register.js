@@ -11,7 +11,8 @@ export const composer = ({context, clearErrors}, onData) => {
     const step = Store.getState().step.STEP_STATE;
     const stepInfo = Store.getState().step.stepInfo;
     const locationInfo = Store.getState().step.locationInfo;
-    onData(null, {error, role, step, stepInfo, locationInfo});
+    const businessLocation = Store.getState().step.businessLocation
+    onData(null, {error, role, step, stepInfo, locationInfo, businessLocation});
   });
 
   const error = Store.getState().register.REGISTER_STATE;
@@ -19,8 +20,8 @@ export const composer = ({context, clearErrors}, onData) => {
   const step = Store.getState().step.STEP_STATE;
   const stepInfo = Store.getState().step.stepInfo;
   const locationInfo = Store.getState().step.locationInfo;
-
-  onData(null, {error, role, step, stepInfo, locationInfo});
+  const businessLocation = Store.getState().step.businessLocation
+  onData(null, {error, role, step, stepInfo, locationInfo, businessLocation});
 
   const cleanup = () => {
     unsubscribe();
@@ -36,6 +37,7 @@ export const depsMapper = (context, actions) => ({
   changeStep: actions.register.changeStep,
   validateRegister: actions.register.validateRegister,
   getGeolocation: actions.register.getGeolocation,
+  geocodeVendor: actions.register.geocodeVendor,
   context: () => context
 });
 

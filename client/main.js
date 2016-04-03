@@ -12,6 +12,7 @@ Meteor.startup(()=>{
 // modules
 import coreModule from './modules/core';
 import accountsModule from './modules/accounts';
+import dealsModule from './modules/deals';
 
 const coreReducers = coreModule.reducers;
 const accountsReducers = accountsModule.reducers;
@@ -27,4 +28,5 @@ const context = initContext({reducer});
 const app = createApp(context);
 app.loadModule(coreModule);
 app.loadModule(accountsModule);
+app.loadModule(dealsModule);
 app.init();

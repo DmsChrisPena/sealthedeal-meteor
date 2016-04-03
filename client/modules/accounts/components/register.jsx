@@ -22,6 +22,8 @@ class Register extends React.Component {
 					allProps={this.props}
 					previousStep={this.previousStep.bind(this)} 
 					createUser={this.createUser.bind(this)}
+					locationInfo={this.props.locationInfo}
+					getGeolocation={this.getGeolocation.bind(this)}
 				/>
 			);
 
@@ -32,8 +34,8 @@ class Register extends React.Component {
 					allProps={this.props}
 					previousStep={this.previousStep.bind(this)}
 					createUser={this.createUser.bind(this)}
-					getGeolocation={this.getGeolocation.bind(this)}
-					locationInfo={this.props.locationInfo}
+					businessLocation={this.props.businessLocation}
+					geocodeVendor={this.props.geocodeVendor.bind(this)}
 				/>
 			);
 		} else {
@@ -52,6 +54,7 @@ class Register extends React.Component {
 		return (
 			<div>
 				<h2 className="col s12">Create {role}</h2>
+				<a href="/">Login</a>
 				{error ? this.renderError(error) : null }
 				{register}	
 			</div>
@@ -65,26 +68,53 @@ class Register extends React.Component {
 		}
 		// Grab values from event
 		const el = $(event.target);
-		const name = el.find('#name').val(),
-			sex = el.find('#sex').val(),
-			age = el.find('#age').val();
-			interests = el.find('#interests').val();
+
 
 		const { createUser, role } = this.props;
 		const { email, password } = this.props.stepInfo;
 
-		// Creating profile object for user
-		const profile = {
-			role,
-			name,
-			sex,
-			age,
-			interests
-		};
-		console.log(profile);
-		createUser(email, password, profile);
-	}
+		// Depending on role define our profile info
+		// and location info differently
+		if(role === 'User') {
+			const name = el.find('#name').val(),
+				  sex = el.find('#sex').val(),
+				  age = el.find('#age').val();
+				  interests = el.find('#interests').val();
 
+			// Rename locationInfo to location to match our schema
+			const location = this.props.locationInfo;
+
+			// Creating profile object for user
+			const profile = {
+				role,
+				name,
+				sex,
+				age,
+				interests,
+				location
+			};
+			// Create our User
+			createUser(email, password, profile);
+		} else {
+			const name = el.find('#name').val(),
+				  businessName = el.find('#businessName').val(),
+				  types = el.find('#types').val();
+
+			// Rename businessLocation to location to match our schema
+			const location = this.props.businessLocation;
+
+			// Creating profile object for user
+			const profile = {
+				role,
+				name,
+				businessName,
+				types,
+				location
+			};
+			// Create our Vendor
+			createUser(email, password, profile);
+		}
+	}
 	changeRole(event) {
 		const { changeRole } = this.props;
 		changeRole(event);

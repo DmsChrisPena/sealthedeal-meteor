@@ -1,16 +1,16 @@
 import React from 'react';
 import {mount} from 'react-mounter';
 import MainLayout from './components/main_layout.jsx';
-import Home from './components/home.jsx';
+import Login from './../accounts/containers/login';
 
 export default function (injectDeps, {FlowRouter}) {
   const MainLayoutCtx = injectDeps(MainLayout);
   
   FlowRouter.route('/', {
-    name: 'home',
+    name: 'login',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<Home />)
+        content: () => (<Login />)
       });
     }
   });
@@ -21,8 +21,3 @@ export default function (injectDeps, {FlowRouter}) {
 let mobileViewPort = { name: 'viewport', content: 'width=device-width, initial-scale=1.0' };
 DocHead.addMeta(mobileViewPort);
 
-// Load Google maps api to use places autocomplete
-const googleMapsAPI = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAHXaqI9SxhJZDLF_-YQk7lyumu3l8vzJI&libraries=places"
-DocHead.loadScript(googleMapsAPI, () => {
-	console.log('google maps api loaded');
-});
