@@ -14,7 +14,6 @@ class DealsList extends React.Component {
 		}
 		return (
 			<div style={{marginBottom: 60}}>
-				<h4>Deals List</h4>
 				{dealsComp}
 			</div>
 		);

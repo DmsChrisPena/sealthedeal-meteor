@@ -110,7 +110,7 @@ class RegisterUser extends React.Component {
 				<br /><br />
 				{locationInfo !== undefined ? 
 					<p className="text-center">Hows the weather in {locationInfo.city}, {locationInfo.state}?</p> 
-				: <CircularProgress size={0.5} />}
+				: <div style={{marginLeft: 100}}>Finding Location...<CircularProgress size={0.3}/></div> }
 
 				<TextField
 					id="name"

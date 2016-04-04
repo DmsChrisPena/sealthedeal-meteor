@@ -146,7 +146,7 @@ class RegisterVendor extends React.Component {
 				/>
 				<RaisedButton 
 					type='submit'
-					label="Create User" 
+					label="Create Vendor" 
 					backgroundColor="white"
 					labelColor="green"
 					style={{marginBottom: 12}} 

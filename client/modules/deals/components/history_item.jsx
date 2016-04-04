@@ -1,8 +1,6 @@
 import React from 'react';
-import Moment from 'moment';
-import RaisedButton from 'material-ui/lib/raised-button';
 
-class DealItem extends React.Component {
+class HistoryItem extends React.Component {
 	render() {
 		const {deal} = this.props;
 		let dealImgUrl;
@@ -24,21 +22,16 @@ class DealItem extends React.Component {
 		}
 		return (
 			<div id="deal-item">
-				<div className="row" style={{marginBottom: 4}}>
-					<div className="col s9">
+				<div className="row" style={{marginBottom: 8}}>
+					<div className="col s8">
 						<p className="deal-title">{deal.dealName}</p>
-						<p className="deal-tag">Points: {deal.points}</p>
-						<p className="deal-tag">Expires {Moment(deal.timeLimit).startOf('hour').fromNow()}</p>
-					</div>
-					<div className="col s3">
-						<img className="img-responsive deal-img" src={dealImgUrl} />
-					</div>
-				</div>
-				<div className="row">
-					<div className="col s12">
 						<p className="deal-tag">Description: {deal.desc}</p>
-						<p className="deal-tag">{deal.formatted_address}</p>
-						<a href={`/deal/${deal._id}`}>More Details</a>
+						<p className="deal-tag">Seal Points: {deal.points}</p>
+						<p className="deal-tag">Saved: ${deal.price}</p>
+						<p className="deal-tag">Type: {deal.type}</p>
+					</div>
+					<div className="col s4">
+						<img className="img-responsive center-block deal-img" src={dealImgUrl} />
 					</div>
 				</div>
 			</div>
@@ -46,4 +39,4 @@ class DealItem extends React.Component {
 	}
 }
 
-export default DealItem;
+export default HistoryItem;

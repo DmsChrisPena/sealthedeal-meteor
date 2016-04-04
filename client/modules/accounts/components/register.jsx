@@ -168,7 +168,10 @@ class Register extends React.Component {
 	}
 	renderError(error) {
 		return (
-			<h5 style={{color: 'red'}}>{error}</h5>
+			<div className="row alert-danger z-depth-1" style={{margin: 0}}>
+				<p className="col s12 text-center" style={{margin: 0}}>{error}</p>
+			</div>
+			
 		);
 	}
 
