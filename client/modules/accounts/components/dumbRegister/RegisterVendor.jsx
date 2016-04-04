@@ -61,22 +61,42 @@ class RegisterVendor extends React.Component {
 		// Materialize makes it hard to grab values.
 		// So I'm forced to use jQuery till better solution.
 		let typesList = $('#types').val();
-		console.log(this.props.businessLocation);
+
+		const style = {
+			imgStyle: {
+				marginLeft: 12,
+				marginRight: 12
+			}
+		};
 		return (
 			<form className="row" onSubmit={createUser}>
-				
-				{this.state.name ? 'Hello, ' + this.state.name : ''}
-				{this.state.businessName ? this.state.businessName + '!, that place is great!' : ''}
-				{typesList ?
-					typesList.map((type)=>{
-						return <p>{type}</p>;
-					})
-				: null}
-				{this.state.mapUrl ? 				
-					<a
-					href={this.state.mapUrl}
-					target="_blank">This location look correct?</a>
-				 : null}
+				{this.state.businessName ? <h4 className="text-center" style={{margin: 0}}>{this.state.businessName}</h4> : ''}
+				<div className="types-container">
+					{typesList ?
+						typesList.map((type)=>{
+							if(type === 'Food') {
+								return <img height="50" style={style.imgStyle} src="http://i.imgur.com/5LsIPko.png" />; 
+							}
+							if(type === 'Bars') {
+								return <img height="50" style={style.imgStyle} src="http://i.imgur.com/SGTknko.png" />; 
+							}
+							if(type === 'Shopping') {
+								return <img height="50" style={style.imgStyle} src="http://i.imgur.com/BrpIm8X.png" />; 
+							}
+							if(type === 'Activities') {
+								return <img height="50" style={style.imgStyle} src="http://i.imgur.com/XHa5Y6Y.png" />; 
+							}
+						})
+					: null}
+				</div>
+				<div className="col offset-s3 s9">
+					{this.state.mapUrl ? 				
+						<a
+						className="text-center"
+						href={this.state.mapUrl}
+						target="_blank">This location look correct?</a>
+					 : null}
+				</div>
 
 				<TextField
 					id="name"
@@ -84,6 +104,7 @@ class RegisterVendor extends React.Component {
 					onChange={this.handleInputChange.bind(this, 'name')}
 					hintText="Enter Full Name..."
 					floatingLabelText="Full Name"
+					style={{marign: 0}}
 					fullWidth={true}
 				/>
 
@@ -118,16 +139,18 @@ class RegisterVendor extends React.Component {
 				<RaisedButton 
 					onClick={previousStep}
 					label="Back" 
-					style={{margin: 12}}
 					backgroundColor="white"
 					labelColor="red" 
+					style={{marginTop: 12, marginBottom: 12}}
+					fullWidth={true}
 				/>
 				<RaisedButton 
 					type='submit'
 					label="Create User" 
-					style={{margin: 12}}
 					backgroundColor="white"
-					labelColor="green" 
+					labelColor="green"
+					style={{marginBottom: 12}} 
+					fullWidth={true}
 				/>
 			</form>
 		);

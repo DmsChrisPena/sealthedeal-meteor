@@ -16,9 +16,12 @@ import dealsModule from './modules/deals';
 
 const coreReducers = coreModule.reducers;
 const accountsReducers = accountsModule.reducers;
+const dealsReducers = dealsModule.reducers;
+
 const reducer = combineReducers({
   ...coreReducers,
-  ...accountsReducers
+  ...accountsReducers,
+  ...dealsReducers
 });
 
 // init context

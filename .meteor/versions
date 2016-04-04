@@ -6,7 +6,6 @@ aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.2
-autopublish@1.0.5
 autoupdate@1.2.6
 babel-compiler@6.5.2
 babel-runtime@0.1.6
@@ -36,6 +35,7 @@ ejson@1.0.9
 email@1.0.10
 es5-shim@4.5.8
 fastclick@1.0.9
+fourseven:scss@3.4.1
 geojson-utils@1.0.6
 hot-code-push@1.0.2
 html-tools@1.0.7

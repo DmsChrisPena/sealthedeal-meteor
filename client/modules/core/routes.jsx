@@ -4,12 +4,12 @@ import MainLayout from './components/main_layout.jsx';
 import Login from './../accounts/containers/login';
 
 export default function (injectDeps, {FlowRouter}) {
-  const MainLayoutCtx = injectDeps(MainLayout);
+  const LoginCtx = injectDeps(Login);
   
   FlowRouter.route('/', {
     name: 'login',
     action() {
-      mount(MainLayoutCtx, {
+      mount(LoginCtx, {
         content: () => (<Login />)
       });
     }

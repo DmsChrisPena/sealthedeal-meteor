@@ -2,6 +2,7 @@ import React from 'react';
 import RegisterStepOne from './dumbRegister/RegisterStepOne';
 import RegisterUser from './dumbRegister/RegisterUser';
 import RegisterVendor from './dumbRegister/RegisterVendor';
+import Banner from './dumbRegister/banner';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
 
@@ -52,11 +53,15 @@ class Register extends React.Component {
 		}
 		// Return UI View with errors if true
 		return (
-			<div>
-				<h2 className="col s12">Create {role}</h2>
-				<a href="/">Login</a>
-				{error ? this.renderError(error) : null }
-				{register}	
+			<div id="registerWrap">
+				<Banner title={`Create ${role}`} backgroundImage={'http://i.imgur.com/5rrHtal.png'}/>
+				<div className="container">
+					<div className="row">
+						<a href="/" className="col s12 text-center" style={{marginTop: 12}}>Back to Login</a>
+					</div>
+					{error ? this.renderError(error) : null }
+					{register}
+				</div>
 			</div>
 		);
 	}

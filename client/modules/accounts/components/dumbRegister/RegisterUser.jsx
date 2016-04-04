@@ -75,24 +75,42 @@ class RegisterUser extends React.Component {
 		// Materialize makes it hard to grab values.
 		// So I'm forced to use jQuery till better solution.
 		let interestList = $('#interests').val();
-
+		const style = {
+			imgStyle: {
+				marginLeft: 12,
+				marginRight: 12,
+				marginTop: 6
+			}
+		};
 		return (
 			<form className="row" onSubmit={createUser}>
-				{this.state.name ? 'Hello, ' + this.state.name : ''}
 				{this.state.sex === 'Male' ?
-					<img src='http://i.imgur.com/M0J4erM.png' />
+					<img height="100" className="center-block" src='http://i.imgur.com/EoCorsE.png' />
 					:
-					<img src='http://i.imgur.com/UxsiqUB.png' />
+					<img height="100" className="center-block" src='http://i.imgur.com/gbM0QaJ.png' />
 				}
+				<div className="col offset-s2">
+					{interestList ?
+						interestList.map((interest)=>{
+							if(interest === 'Food') {
+								return <img height="30" style={style.imgStyle} src="http://i.imgur.com/5LsIPko.png" />; 
+							}
+							if(interest === 'Bars') {
+								return <img height="30" style={style.imgStyle} src="http://i.imgur.com/SGTknko.png" />; 
+							}
+							if(interest === 'Shopping') {
+								return <img height="30" style={style.imgStyle} src="http://i.imgur.com/BrpIm8X.png" />; 
+							}
+							if(interest === 'Activities') {
+								return <img height="30" style={style.imgStyle} src="http://i.imgur.com/XHa5Y6Y.png" />; 
+							}
+						})
+					: null}
+				</div>
+				<br /><br />
 				{locationInfo !== undefined ? 
-					<p>Hows the weather in {locationInfo.city}, {locationInfo.state}?</p> 
+					<p className="text-center">Hows the weather in {locationInfo.city}, {locationInfo.state}?</p> 
 				: <CircularProgress size={0.5} />}
-
-				{interestList ?
-					interestList.map((interest)=>{
-						return <p>{interest}</p>;
-					})
-				: null}
 
 				<TextField
 					id="name"
@@ -105,8 +123,8 @@ class RegisterUser extends React.Component {
 				<div>
 				  <select className="icons" id="sex" ref="sex" value={this.state.sex}>
 				    <option value="" disabled defaultValue>Choose your Gender</option>
-				    <option value="Male" data-icon="http://i.imgur.com/M0J4erM.png" className="left circle">Guy</option>
-				    <option value="Female" data-icon="http://i.imgur.com/UxsiqUB.png" className="left circle">Girl</option>
+				    <option value="Male" data-icon="http://i.imgur.com/EoCorsE.png" className="left circle">Guy</option>
+				    <option value="Female" data-icon="http://i.imgur.com/gbM0QaJ.png" className="left circle">Girl</option>
 				  </select>
 				  <label>Choose Your Gender</label>
 				</div>

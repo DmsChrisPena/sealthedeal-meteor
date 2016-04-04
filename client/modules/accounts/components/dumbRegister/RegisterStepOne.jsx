@@ -56,7 +56,7 @@ class RegisterStepOne extends React.Component {
 					fullWidth={true}
 				/>
 
-				<div className="switch" style={{margin: 12}}>
+				<div className="switch" style={{margin: 16, paddingLeft: 50}}>
 				  <label>
 				    Are you a User
 				    <input ref="role" type="checkbox" onChange={changeRole} checked={role === 'Vendor' ? true : false} />
@@ -67,9 +67,11 @@ class RegisterStepOne extends React.Component {
 
 				<RaisedButton 
 					type='submit'
-					label="Step 1" 
-					backgroundColor="white"
-					labelColor="green" 
+					label="Next" 
+					style={{marginTop: 16}}
+					backgroundColor="#009688"
+					labelColor="white" 
+					fullWidth={true}
 				/>
 			</form>
 		);

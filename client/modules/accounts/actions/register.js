@@ -20,7 +20,7 @@ export default {
 					type: 'STEP1',
 					stepInfo: {}
 				});
-				FlowRouter.go('/');
+				FlowRouter.go('/dealsList');
 			}
 		});
 	},

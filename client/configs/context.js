@@ -4,6 +4,8 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import {Tracker} from 'meteor/tracker';
 import {createStore} from 'redux';
 import {Accounts} from 'meteor/accounts-base';
+// Load Google Maps api and add key.
+// Need to find better location for this.
 Meteor.startup(() => {
 	GoogleMaps.load({
 		key: 'AIzaSyAHXaqI9SxhJZDLF_-YQk7lyumu3l8vzJI',

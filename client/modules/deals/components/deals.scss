@@ -1,0 +1,26 @@
+#deal-item {
+	padding-top: 12px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	.deal-tag {
+		margin: 0px;
+		color: #999999;
+		font-weight: 300;
+	}
+	.deal-img {
+		margin-top: 12px
+	}
+	.deal-title {
+		margin: 0px;
+		color: #999999;
+		font-weight: 300;
+		font-size: 24px;
+	}
+
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
