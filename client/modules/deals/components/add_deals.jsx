@@ -27,9 +27,9 @@ class AddDeals extends React.Component {
 			});
 		}
 		return (
-			<div style={{marginBottom: 100}}>
-				<h4>Add Deals</h4>
-				<form onSubmit={this.createDeal.bind(this)}>
+			<div style={{marginBottom: 80}}>
+				<h4 className="text-center deal-title" style={{marginTop: 16}}>Add Deals</h4>
+				<form onSubmit={this.createDeal.bind(this)} className="container">
 					<TextField
 						id="dealName"
 						ref="dealName"
@@ -90,8 +90,8 @@ class AddDeals extends React.Component {
 					<RaisedButton 
 						type="submit"
 						label="Create Deal" 
-						backgroundColor="white"
-						labelColor="green"
+						backgroundColor="#4caf50"
+						labelColor="white"
 						fullWidth={true}
 					/>
 				</form>

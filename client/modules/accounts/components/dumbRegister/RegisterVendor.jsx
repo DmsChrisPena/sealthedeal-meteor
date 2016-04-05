@@ -94,7 +94,8 @@ class RegisterVendor extends React.Component {
 						<a
 						className="text-center"
 						href={this.state.mapUrl}
-						target="_blank">This location look correct?</a>
+						target="_blank"
+						onClick={this.openMap.bind(this)}>This location look correct?</a>
 					 : null}
 				</div>
 
@@ -166,6 +167,10 @@ class RegisterVendor extends React.Component {
 
 	displayMapButton(url) {
 		this.setState({mapUrl: url});
+	}
+
+	openMap() {
+		window.open(this.state.mapUrl, '_system');
 	}
 }
 

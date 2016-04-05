@@ -11,13 +11,29 @@ class Deal extends React.Component {
 		if(role === "Vendor") {
 			controls = (
 				<div>
-					<a href={`/editDeal/${deal._id}`}>Edit Deal</a><br />
-					<a onClick={this.deleteDeal.bind(this)}>Delete Deal</a><br />
+					<RaisedButton 
+						type='submit'
+						label="Edit Deal"
+						style={{marginTop: 16}}
+						backgroundColor="#f57c00"
+						labelColor="white" 
+						fullWidth={true}
+						onClick={this.editDeal.bind(this)}
+					/>
+					<RaisedButton 
+						type='submit'
+						label="Delete Deal"
+						style={{marginTop: 16}}
+						backgroundColor="#d32f2f"
+						labelColor="white" 
+						fullWidth={true}
+						onClick={this.deleteDeal.bind(this)}
+					/>
 				</div>
 			);
 		} else {
 			controls = (
-				<form onSubmit={this.sealTheDeal.bind(this)} className="container">
+				<form onSubmit={this.sealTheDeal.bind(this)}>
 					<TextField
 						id="dealPassword"
 						ref="dealPassword"
@@ -38,8 +54,7 @@ class Deal extends React.Component {
 			);
 		}
 		return (
-			<div>
-				<h4>{role}</h4>
+			<div className="container">
 				<DealItem deal={deal} />
 				{controls}
 			</div>	
@@ -48,6 +63,11 @@ class Deal extends React.Component {
 	deleteDeal() {
 		const {deleteDeal, deal} = this.props;
 		deleteDeal(deal._id, deal.dealName);
+	}
+	editDeal() {
+		const { deal } = this.props;
+
+		FlowRouter.go(`/editDeal/${deal._id}`);
 	}
 	sealTheDeal(event) {
 		// Check if even exists

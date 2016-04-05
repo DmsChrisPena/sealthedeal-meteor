@@ -32,9 +32,9 @@ class EditDeal extends React.Component {
 			});
 		}
 		return (
-			<div>
-				<h4>Edit Deals</h4>
-				<form onSubmit={this.editDeal.bind(this)}>
+			<div style={{marginBottom: 80}}>
+				<h4 className="text-center">Edit Deals</h4>
+				<form onSubmit={this.editDeal.bind(this)} className="container">
 					<TextField
 						ref="dealName"
 						value={this.state.dealName}
@@ -102,28 +102,12 @@ class EditDeal extends React.Component {
 					<RaisedButton 
 						type="submit"
 						label="Save Deal" 
-						style={{margin: 12}}
-						backgroundColor="white"
-						labelColor="green" 
+						style={{marginTop: 12}}
+						fullWidth={true}
+						backgroundColor="#4caf50"
+						labelColor="white" 
 					/>
 				</form>
-				<Tabs>
-				  <Tab
-				  	route="/dealsList"
-				    label="Add Deal"
-				    onActive={this.handleRoute.bind(this)}
-				  />
-				  <Tab
-				  	route="/addDeals"
-				    label="Manage Deals"
-				    onActive={this.handleRoute.bind(this)}
-				  />
-				  <Tab
-				  	route="/"
-				    label="Settings"
-				    onActive={this.handleRoute.bind(this)}
-				  />
-				</Tabs>
 			</div>
 		);
 	}

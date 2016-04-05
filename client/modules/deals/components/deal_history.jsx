@@ -7,7 +7,8 @@ class DealHistory extends React.Component {
 
 		let historyItem;
 		let dealPrices;
-		if(deals.length > 0) {
+		console.log(!_.isEmpty(deals));
+		if(!_.isEmpty(deals)) {
 			historyItem = deals.map((deal, i) => { return <HistoryItem key={i} deal={deal} /> });
 			dealPrices = deals.map((deal) => {
 				return parseFloat(deal.price);
@@ -16,7 +17,7 @@ class DealHistory extends React.Component {
 				return (sum + n).toFixed(2);
 			});
 		} else {
-			historyItem = <div className="row"><p className="col s12 text-center">You have sealed a deal yet!</p></div>
+			historyItem = <div className="row"><h5 className="col s12 text-center deal-title" style={{marginTop: 16}}>You have sealed a deal yet!</h5></div>
 		}
 		console.log(deals);
 		return (

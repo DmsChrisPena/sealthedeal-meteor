@@ -44,18 +44,11 @@ class RegisterUser extends React.Component {
 	    $(ReactDOM.findDOMNode(this.refs.interests)).on('change', this.handleInputChange.bind(this, 'interests'));
 
 
-		if(Meteor.isCordova) {
-			// If Meteor is a mobile device
-			// Add deviceready event listener
-			document.addEventListener("deviceready", onDeviceReady, false);
-			function onDeviceReady() {
-				this.props.getGeolocation();
-			};
-		} else {
-			// Geolocate user for mapping information
-			// As well as location information
-			this.props.getGeolocation();
-		}
+
+		// Geolocate user for mapping information
+		// As well as location information
+		this.props.getGeolocation();
+	
 	}
 	render() {
 		// Pull out needed values
